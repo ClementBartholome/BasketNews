@@ -1,0 +1,49 @@
+@use '../utils' as *;
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+#app {
+  display: flex;
+}
+
+html,
+body {
+  font-size: 16px;
+}
+
+h1,
+h2,
+h3 {
+  font-family: 'Playfair Display', serif;
+}
+
+p,
+small {
+  font-family: 'Lora', serif;
+}
+
+a {
+  text-decoration: none;
+}
+
+:root {
+  --text-color-light: #333;
+  --background-color-light: #fff;
+
+  --text-color-dark: #fff;
+  --background-color-dark: #333;
+}
+
+body {
+  color: var(--text-color-light);
+  background-color: var(--background-color-light);
+}
+
+.dark-mode {
+  color: var(--text-color-dark);
+  background-color: var(--background-color-dark);
+}
