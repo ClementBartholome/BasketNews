@@ -1,5 +1,5 @@
 <template>
-  <button @click="toggleDarkMode">
+  <button @click="toggleDarkMode" class="dark-mode-btn">
     <span class="material-symbols-outlined">{{ isDarkMode ? 'light_mode' : 'dark_mode' }}</span>
   </button>
 </template>
@@ -15,3 +15,13 @@ const toggleDarkMode = () => {
   document.body.classList.toggle('light-mode')
 }
 </script>
+
+<style lang="scss" scoped>
+.dark-mode-btn {
+  position: relative;
+  top: -30px;
+  display: flex;
+  margin-left: auto;
+  color: var(--text-color);
+}
+</style>

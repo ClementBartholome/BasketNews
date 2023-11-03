@@ -6,13 +6,7 @@
     :filterArticles="filterArticles"
   />
   <main>
-    <div class="headline">
-      <div class="headline-content">
-        <span class="material-symbols-outlined"> sports_basketball </span>
-        <h1>Basket News</h1>
-      </div>
-      <DarkModeBtn />
-    </div>
+    <HeaderItem />
     <div class="home-layout">
       <section class="articles">
         <div class="featured">
@@ -31,6 +25,12 @@
           <ArticleCard :article="article" />
         </article>
       </section>
+      <router-link to="/news">
+        <LoadMoreBtn>
+          Afficher la suite des actus
+          <span class="material-symbols-outlined"> arrow_right_alt </span></LoadMoreBtn
+        ></router-link
+      >
       <section class="continu">
         <h2>En continu</h2>
         <NewsFeed :allArticles="allArticles" />
@@ -42,9 +42,10 @@
 <script setup lang="ts">
 import { ref, onMounted } from 'vue'
 import ArticleCard from '@/components/ArticleCard.vue'
-import DarkModeBtn from '@/components/DarkModeBtn.vue'
+import HeaderItem from '@/components/HeaderItem.vue'
 import NewsFeed from '@/components/NewsFeed.vue'
 import SidebarFilters from '@/components/SidebarFilters.vue'
+import LoadMoreBtn from '@/components/LoadMoreBtn.vue'
 import { sources } from '@/assets/sources'
 import type { Article } from '@/types/types'
 import { fetchAllArticles } from '@/api/api'
@@ -91,43 +92,6 @@ main {
   position: absolute;
   z-index: -1;
   left: 20vw;
-}
-
-.headline {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  border-bottom: 2px solid #ebebebd5;
-  padding-bottom: 40px;
-  text-transform: uppercase;
-  margin-top: 40px;
-  margin-right: 10px;
-  .headline-content {
-    display: flex;
-    align-items: center;
-    margin-left: auto;
-
-    h1 {
-      margin-left: 10px;
-      font-size: 3rem;
-
-      @media (max-width: 530px) {
-        font-size: 1.5rem;
-      }
-    }
-  }
-  .material-symbols-outlined {
-    font-size: 2rem;
-    @media (max-width: 530px) {
-      font-size: 1.5rem;
-    }
-  }
-
-  button {
-    display: flex;
-    margin-left: auto;
-    color: var(--text-color);
-  }
 }
 
 .articles {
@@ -205,6 +169,13 @@ button {
   border-radius: 10px;
   margin-top: 10px;
   height: fit-content;
+  grid-row: 1;
+  grid-column: 2;
+
+  @media (max-width: 900px) {
+    grid-row: 3;
+    grid-column: 1;
+  }
 }
 
 .home-layout {
@@ -214,8 +185,9 @@ button {
 }
 
 @media (max-width: 1200px) {
-  .article {
-    max-width: 500px;
+  .article,
+  .featured {
+    max-width: 100%;
 
     .img-zoom {
       height: 300px;

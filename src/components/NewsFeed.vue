@@ -9,12 +9,12 @@
         <img :src="article.image" alt="Miniature" />
       </div>
     </div>
-    <button class="load-more" @click="toggleShowLess">
+    <LoadMoreBtn @click="toggleShowLess">
       {{ showLess ? 'Voir moins' : 'Afficher les actus NBA suivantes' }}
       <span class="material-symbols-outlined">
         {{ !showLess ? 'arrow_drop_down' : 'arrow_drop_up' }}
       </span>
-    </button>
+    </LoadMoreBtn>
   </section>
 </template>
 
@@ -23,6 +23,7 @@ import { computed, ref } from 'vue'
 import type { PropType } from 'vue'
 import { formatTime } from '@/utils/UtilsFunctions'
 import type { Article } from '@/types/types'
+import LoadMoreBtn from '@/components/LoadMoreBtn.vue'
 
 const props = defineProps({
   allArticles: {
