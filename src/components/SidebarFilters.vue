@@ -14,6 +14,7 @@
         class="filter-button button"
         @click="fetchAllArticles()"
         :class="{ active: selectedSource === '' }"
+        title="Voir tous les articles"
       >
         <span class="material-symbols-outlined">sports_basketball</span>
         <span class="text"> Tous</span>
@@ -24,6 +25,7 @@
         class="filter-button button"
         @click="filterArticles(source.name)"
         :class="{ active: selectedSource === source.name }"
+        :title="source.name"
       >
         <img :src="source.logo" class="material-symbols-outlined logo" alt="Logo" />
         <span class="text">
