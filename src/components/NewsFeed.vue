@@ -60,7 +60,7 @@ const toggleShowLess = () => {
     font-size: 0.8rem;
     font-weight: 400;
     margin-top: 0;
-    max-width: 160px;
+    max-width: 190px;
     max-height: 50px;
     display: -webkit-box;
     -webkit-line-clamp: 3;
@@ -75,6 +75,10 @@ const toggleShowLess = () => {
   .img-zoom {
     height: 50px;
     width: 50px;
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    overflow: hidden;
 
     @media (max-width: 375px) {
       display: none;
@@ -84,7 +88,7 @@ const toggleShowLess = () => {
       height: 100%;
       width: 100%;
       object-fit: cover;
-      border-radius: 10px;
+
       transition: 0.3s all ease-in-out;
 
       &:hover {
