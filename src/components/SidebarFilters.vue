@@ -35,30 +35,34 @@
 </template>
 
 <script setup lang="ts">
+import type { PropType } from 'vue'
 import { ref } from 'vue'
+import type { Source } from '@/types/types'
 
-const props = defineProps({
-  sources: Array,
+defineProps({
+  sources: { type: Array as PropType<Source[]>, required: true },
   selectedSource: String,
-  filterArticles: Function,
-  fetchAllArticles: Function
+  filterArticles: { type: Function, required: true },
+  fetchAllArticles: { type: Function, required: true }
 })
 
-const is_expanded = ref(localStorage.getItem('is_expanded') === 'true')
+const savedIsExpanded = localStorage.getItem('is_expanded')
+const is_expanded = ref(savedIsExpanded === 'true')
 
 const ToggleMenu = () => {
   is_expanded.value = !is_expanded.value
-  localStorage.setItem('is_expanded', is_expanded.value)
+  localStorage.setItem('is_expanded', is_expanded.value.toString())
 }
 </script>
 
 <style lang="scss" scoped>
+.filter-button.active {
+  background-color: #007bff;
+  color: #fff;
+}
 .logo {
   height: 32px;
   width: 32px;
-}
-
-.filter-button {
 }
 
 aside {
@@ -72,6 +76,8 @@ aside {
   overflow: hidden;
   min-height: 100vh;
   padding: 1rem;
+
+  position: fixed;
 
   transition: 0.2s ease-in-out;
 
@@ -128,10 +134,10 @@ aside {
     margin: 0 -1rem;
 
     .button {
+      width: 100%;
       display: flex;
       align-items: center;
       text-decoration: none;
-
       transition: 0.2s ease-in-out;
       padding: 0.5rem 1rem;
 
@@ -204,8 +210,16 @@ aside {
   }
 
   @media (max-width: 1024px) {
-    position: absolute;
+    position: fixed;
     z-index: 99;
+  }
+
+  @media (max-width: 375px) {
+    width: calc(2rem + 16px);
+
+    .menu .button {
+      padding: 0.5rem;
+    }
   }
 }
 </style>

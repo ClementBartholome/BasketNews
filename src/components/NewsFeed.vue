@@ -1,7 +1,7 @@
 <template>
   <section>
     <div class="news-feed" v-for="article in slicedArticles" :key="article.link">
-      <small>{{ formatDate(article.pubDate) }}</small>
+      <small>{{ formatTime(article.pubDate) }}</small>
       <h2 class="article-title">
         <a :href="article.link" target="_blank">{{ article.title }}</a>
       </h2>
@@ -21,7 +21,8 @@
 <script setup lang="ts">
 import { computed, ref } from 'vue'
 import type { PropType } from 'vue'
-import { formatDate } from '@/utils/UtilsFunctions.ts'
+import { formatTime } from '@/utils/UtilsFunctions'
+import type { Article } from '@/types/types'
 
 const props = defineProps({
   allArticles: {
@@ -39,19 +40,72 @@ const slicedArticles = computed(() => props.allArticles.slice(startIndex.value, 
 const toggleShowLess = () => {
   showLess.value = !showLess.value
   if (showLess.value) {
-    endIndex.value += 6
+    endIndex.value += 10
   } else {
     endIndex.value = startIndex.value + 12
   }
 }
-
-interface Article {
-  title: string
-  pubDate: Date
-  link: string
-  author: string
-  image: string
-  description: string
-  source: string
-}
 </script>
+
+<style scoped lang="scss">
+.news-feed {
+  display: flex;
+  flex-direction: row;
+  gap: 10px;
+  margin-top: 10px;
+  small {
+    font-size: 0.7rem;
+  }
+  .article-title {
+    font-size: 0.8rem;
+    font-weight: 400;
+    margin-top: 0;
+    max-width: 160px;
+    max-height: 50px;
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    text-overflow: ellipsis;
+
+    @media (max-width: 375px) {
+      max-width: 210px;
+    }
+  }
+  .img-zoom {
+    height: 50px;
+    width: 50px;
+
+    @media (max-width: 375px) {
+      display: none;
+    }
+
+    img {
+      height: 100%;
+      width: 100%;
+      object-fit: cover;
+      border-radius: 10px;
+      transition: 0.3s all ease-in-out;
+
+      &:hover {
+        transform: scale(1.1);
+      }
+    }
+  }
+}
+.load-more {
+  display: flex;
+  align-items: center;
+  text-align: center;
+  border: 1px solid #cecece;
+  font-size: 14px;
+  padding: 8px;
+  margin-top: 10px;
+  color: var(--text-color);
+  cursor: pointer;
+  &:hover {
+    color: #2c84c1;
+    border: 1px solid #95c2e1;
+  }
+}
+</style>
