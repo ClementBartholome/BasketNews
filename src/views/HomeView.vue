@@ -228,6 +228,9 @@ button {
     grid-template-columns: 1fr;
     margin: 20px;
   }
+  .continu {
+    margin: 30px auto;
+  }
 }
 
 @media (max-width: 850px) {
@@ -239,9 +242,6 @@ button {
   }
   .article .img-zoom {
     height: 320px;
-  }
-  .continu {
-    margin: 30px auto;
   }
 }
 
