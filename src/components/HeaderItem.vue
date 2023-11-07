@@ -1,9 +1,11 @@
 <template>
   <header class="header">
-    <div class="header-content">
-      <span class="material-symbols-outlined"> sports_basketball </span>
-      <h1>Basket News</h1>
-    </div>
+    <router-link to="/">
+      <div class="header-content">
+        <span class="material-symbols-outlined"> sports_basketball </span>
+        <h1>Daily Basket</h1>
+      </div>
+    </router-link>
     <DarkModeBtn />
   </header>
 </template>
@@ -17,30 +19,49 @@ import DarkModeBtn from '@/components/DarkModeBtn.vue'
   display: flex;
   justify-content: center;
   align-items: center;
-  border-bottom: 2px solid #ebebebd5;
+  border-bottom: 2px solid rgba(235, 235, 235, 0.8352941176);
   padding-bottom: 40px;
+  padding-right: 10px;
   text-transform: uppercase;
   margin-top: 40px;
   margin-right: 10px;
+  max-width: 1280px;
+  width: 100%;
+  margin: 40px auto;
+  grid-column: 2;
+
   .header-content {
     display: flex;
     align-items: center;
     margin-left: auto;
+    transition:
+      transform 0.2s,
+      color 0.2s;
+
+    &:hover {
+      transform: scale(1.1);
+      color: #007bff;
+    }
 
     h1 {
       margin-left: 10px;
       font-size: 3rem;
+      transition: color 0.2s;
 
       @media (max-width: 530px) {
-        font-size: 1.5rem;
+        font-size: 2rem;
+      }
+
+      @media (max-width: 530px) {
+        font-size: 1.7rem;
       }
     }
   }
   .material-symbols-outlined {
     font-size: 2rem;
-    // @media (max-width: 530px) {
-    //   font-size: 1.5rem;
-    // }
+    transition:
+      transform 0.2s,
+      color 0.2s;
   }
 }
 </style>
