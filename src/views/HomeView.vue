@@ -5,34 +5,31 @@
     :fetchAllArticles="fetchAllArticles"
     :filterArticles="filterArticles"
   />
+  <HeaderItem />
   <main>
-    <HeaderItem />
+    <BoxResults />
     <div class="home-layout">
-      <section class="articles">
+      <span v-if="loading" class="material-symbols-outlined loader">sports_basketball</span>
+      <section v-else class="articles">
         <div class="featured">
-          <h2>En direct</h2>
+          <h2>Dernières actus</h2>
           <article class="article featured" v-for="article in latestArticle" :key="article.link">
             <ArticleCard :article="article" />
           </article>
         </div>
-        <span v-if="loading" class="material-symbols-outlined loader">sports_basketball</span>
-        <article
-          class="article regular"
-          v-else
-          v-for="article in regularArticles"
-          :key="article.link"
-        >
+
+        <article class="article regular" v-for="article in regularArticles" :key="article.link">
           <ArticleCard :article="article" />
         </article>
       </section>
-      <router-link to="/news">
+      <router-link to="/news/page/2">
         <LoadMoreBtn>
           Afficher la suite des actus
           <span class="material-symbols-outlined"> arrow_right_alt </span></LoadMoreBtn
         ></router-link
       >
       <section class="continu">
-        <h2>En continu</h2>
+        <h2>Chrono</h2>
         <NewsFeed :allArticles="allArticles" />
       </section>
     </div>
@@ -44,6 +41,7 @@ import { ref, onMounted } from 'vue'
 import ArticleCard from '@/components/ArticleCard.vue'
 import HeaderItem from '@/components/HeaderItem.vue'
 import NewsFeed from '@/components/NewsFeed.vue'
+import BoxResults from '@/components/BoxResults.vue'
 import SidebarFilters from '@/components/SidebarFilters.vue'
 import LoadMoreBtn from '@/components/LoadMoreBtn.vue'
 import { sources } from '@/assets/sources'
@@ -57,10 +55,25 @@ const loading = ref(true)
 const selectedSource = ref<string>('')
 
 onMounted(async () => {
-  fetchAllArticles(latestArticle, regularArticles, allArticles, loading)
+  sortArticles()
   const intervalDuration = 60 * 1000 // 1 minute
   setInterval(fetchAllArticles, intervalDuration)
 })
+
+const sortArticles = async () => {
+  loading.value = true
+  const fetchedArticles = await fetchAllArticles()
+  fetchedArticles.sort((a, b) => b.pubDate.getTime() - a.pubDate.getTime())
+
+  const featured = fetchedArticles.slice(0, 1)
+  const regular = fetchedArticles.slice(1, 8)
+
+  loading.value = false
+  allArticles.value = fetchedArticles
+  regularArticles.value = regular
+  latestArticle.value = featured
+  selectedSource.value = ''
+}
 
 const filterArticles = (sourceName: string) => {
   selectedSource.value = sourceName
@@ -71,6 +84,10 @@ const filterArticles = (sourceName: string) => {
   regularArticles.value = allArticles.value
     .filter((article) => (sourceName === '' ? true : article.source === sourceName))
     .slice(1, 8)
+
+  if (selectedSource.value === '') {
+    sortArticles()
+  }
 }
 </script>
 
@@ -87,11 +104,14 @@ const filterArticles = (sourceName: string) => {
 
 main {
   max-width: 1280px;
-  width: 80%;
+  width: 100%;
   margin: 0 auto;
-  position: absolute;
-  z-index: -1;
-  left: 20vw;
+  grid-row: 2;
+  grid-column: 2;
+
+  @media (max-width: 768px) {
+    width: 100%;
+  }
 }
 
 .articles {
@@ -113,8 +133,12 @@ main {
   }
 }
 
-.featured {
+.article.featured {
   max-width: 500px;
+
+  @media (max-width: 900px) {
+    max-width: 100%;
+  }
 
   .article-title {
     font-size: 1.4rem;
@@ -141,7 +165,7 @@ a {
   color: var(--text-color-light);
 }
 
-a:hover {
+main a:hover {
   color: #007bff;
 }
 
