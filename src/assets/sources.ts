@@ -4,7 +4,11 @@ export const sources = [
     url: 'https://www.basketusa.com/feed',
     logo: 'https://raw.githubusercontent.com/ClementBartholome/BasketNews/main/public/images/basketusa.webp'
   },
-  { name: 'TrashTalk', url: 'https://trashtalk.co/feed', logo: '../public/images/trashtalk.png' },
+  {
+    name: 'TrashTalk',
+    url: 'https://trashtalk.co/feed',
+    logo: 'https://raw.githubusercontent.com/ClementBartholome/BasketNews/main/public/images/trashtalk.png'
+  },
   {
     name: 'BasketSession',
     url: 'https://www.basketsession.com/feed',
