@@ -136,7 +136,7 @@ main {
 .article.featured {
   max-width: 500px;
 
-  @media (max-width: 900px) {
+  @media (max-width: 1200px) {
     max-width: 100%;
   }
 
