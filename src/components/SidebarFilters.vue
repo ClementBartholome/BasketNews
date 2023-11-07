@@ -1,7 +1,6 @@
 <template>
   <aside :class="`${is_expanded ? 'is-expanded' : ''}`">
     <div class="logo"></div>
-
     <div class="menu-toggle-wrap">
       <button class="menu-toggle" @click="ToggleMenu">
         <span class="material-symbols-outlined">keyboard_double_arrow_right</span>
@@ -12,7 +11,7 @@
     <div class="filter-buttons menu">
       <button
         class="filter-button button"
-        @click="fetchAllArticles()"
+        @click="filterArticles('')"
         :class="{ active: selectedSource === '' }"
         title="Voir tous les articles"
       >
@@ -70,7 +69,7 @@ const ToggleMenu = () => {
 aside {
   display: flex;
   flex-direction: column;
-
+  grid-column: 1;
   background-color: var(--dark);
   color: var(--light);
 
