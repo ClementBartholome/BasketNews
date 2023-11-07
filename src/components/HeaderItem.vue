@@ -26,7 +26,6 @@ import DarkModeBtn from '@/components/DarkModeBtn.vue'
   margin-top: 40px;
   margin-right: 10px;
   max-width: 1280px;
-  width: 100%;
   margin: 40px auto;
   grid-column: 2;
 
@@ -52,8 +51,8 @@ import DarkModeBtn from '@/components/DarkModeBtn.vue'
         font-size: 2rem;
       }
 
-      @media (max-width: 530px) {
-        font-size: 1.7rem;
+      @media (max-width: 350px) {
+        font-size: 1.8rem;
       }
     }
   }
