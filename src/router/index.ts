@@ -13,6 +13,16 @@ const router = createRouter({
       path: '/news',
       name: 'news',
       component: () => import('../views/NewsView.vue')
+    },
+    {
+      path: '/news/page/:page',
+      name: 'news-page',
+      component: () => import('../views/NewsView.vue')
+    },
+    {
+      path: '/boxscore/:id',
+      name: 'boxscore',
+      component: () => import('../views/BoxScoreView.vue')
     }
   ]
 })
