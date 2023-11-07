@@ -177,6 +177,10 @@ hr {
   margin: 20px 0;
 }
 
+header {
+  grid-column: 1 / span 2 !important;
+}
+
 .logo {
   width: 30px;
   height: 30px;
