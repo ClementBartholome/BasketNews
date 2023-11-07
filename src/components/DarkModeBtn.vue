@@ -18,10 +18,20 @@ const toggleDarkMode = () => {
 
 <style lang="scss" scoped>
 .dark-mode-btn {
-  position: relative;
-  top: -30px;
+  position: absolute;
+  right: 20px;
+  top: 20px;
   display: flex;
-  margin-left: auto;
   color: var(--text-color);
+
+  @media (max-width: 450px) {
+    right: 5px;
+    top: 10px;
+  }
+
+  &:hover {
+    opacity: 0.7;
+    transition: opacity 0.2s;
+  }
 }
 </style>
