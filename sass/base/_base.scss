@@ -16,7 +16,7 @@
 
 .light-mode {
   --text-color: #333;
-  --background-color: #fff;
+  --background-color: #dee4e7;
 }
 
 .dark-mode {
@@ -25,7 +25,12 @@
 }
 
 #app {
-  display: flex;
+  display: grid;
+  grid-template: 150px 1fr / 75px 1fr;
+
+  @media (max-width: 380px) {
+    grid-template: 150px 1fr/55px 1fr;
+  }
 }
 
 html,
