@@ -2,13 +2,9 @@ import axios from 'axios'
 import * as cheerio from 'cheerio'
 import { sources } from '@/assets/sources'
 
-export const fetchAllArticles = async (
-  latestArticle: any,
-  regularArticles: any,
-  allArticles: any,
-  loading: any
-) => {
+export const fetchAllArticles = async () => {
   const fetchedArticles = []
+  console.log('Fetching articles...')
 
   for (const source of sources) {
     try {
@@ -56,25 +52,38 @@ export const fetchAllArticles = async (
           source: source.name
         }
       })
+
       fetchedArticles.push(...items)
     } catch (error) {
       console.error(`Erreur lors de la récupération des articles de ${source.name}:`, error)
     }
   }
 
-  fetchedArticles.sort((a, b) => b.pubDate.getTime() - a.pubDate.getTime())
+  return fetchedArticles
+}
 
-  const featured = fetchedArticles.slice(0, 1)
-  const regular = fetchedArticles.slice(1, 8)
+export const fetchNbaGames = async (currentDate: Date) => {
+  const apiUrl = 'https://www.balldontlie.io/api/v1/games?'
 
-  latestArticle.value = featured
-  regularArticles.value = regular
-  allArticles.value = fetchedArticles
-  loading.value = false
+  const year = currentDate.getFullYear()
+  const month = currentDate.getMonth() + 1
+  const day = currentDate.getDate() - 1
 
-  return {
-    featured,
-    regular,
-    allArticles: fetchedArticles
-  }
+  const startDate = `${year}-${month}-${day}`
+  const endDate = `${year}-${month}-${day}`
+
+  const params = new URLSearchParams({
+    start_date: startDate,
+    end_date: endDate
+  })
+
+  const response = await axios.get(apiUrl + params.toString())
+  return response.data.data
+}
+
+export const fetchBoxScore = async (gameId: number) => {
+  const apiUrl = `https://www.balldontlie.io/api/v1/stats?game_ids[]=${gameId}&per_page=100`
+
+  const response = await axios.get(apiUrl)
+  return response.data.data
 }
