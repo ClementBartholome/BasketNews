@@ -138,6 +138,7 @@ main {
 
   @media (max-width: 1200px) {
     max-width: 100%;
+    width: 100%;
   }
 
   .article-title {
