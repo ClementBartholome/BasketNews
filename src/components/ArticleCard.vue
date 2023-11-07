@@ -51,4 +51,8 @@ defineProps({
     margin: 20px 0;
   }
 }
+
+.article.full-list .img-zoom {
+  height: 400px;
+}
 </style>
