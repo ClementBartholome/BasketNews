@@ -33,7 +33,8 @@ export const fetchAllArticles = async () => {
         }
 
         if (image == '') {
-          image = '/images/default_image.jpg'
+          image =
+            'https://raw.githubusercontent.com/ClementBartholome/BasketNews/main/public/images/default_image.jpg'
         }
 
         if (source.name === 'BasketUSA') {
