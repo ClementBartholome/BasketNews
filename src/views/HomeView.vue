@@ -115,6 +115,25 @@ main {
   }
 }
 
+h2 {
+  margin: 10px 0;
+}
+
+p {
+  margin: 5px 0;
+}
+
+a {
+  text-decoration: none;
+  color: var(--text-color-light);
+}
+
+button {
+  background: none;
+  border: none;
+  cursor: pointer;
+}
+
 .articles {
   gap: 1.5rem;
   display: flex;
@@ -139,6 +158,16 @@ main {
     p {
       font-size: 0.9rem;
     }
+
+    @media (max-width: 1200px) {
+      .article-title {
+        font-size: 1.4rem;
+      }
+
+      p {
+        font-size: 1.2rem;
+      }
+    }
   }
 }
 
@@ -160,25 +189,6 @@ main {
   .img-zoom {
     height: 300px;
   }
-}
-
-h2 {
-  margin: 10px 0;
-}
-
-p {
-  margin: 5px 0;
-}
-
-a {
-  text-decoration: none;
-  color: var(--text-color-light);
-}
-
-button {
-  background: none;
-  border: none;
-  cursor: pointer;
 }
 
 .continu {
