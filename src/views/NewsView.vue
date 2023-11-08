@@ -81,7 +81,7 @@ const route = useRoute()
 const router = useRouter()
 const currentPage = ref(Number(route.params.page) || 1)
 
-const maxPageDisplay = 8
+const maxPageDisplay = 6
 
 const pageNumbers = computed(() => {
   const totalArticles = allArticles.value.length
