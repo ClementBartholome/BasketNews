@@ -11,10 +11,10 @@
     <div class="home-layout">
       <span v-if="loading" class="material-symbols-outlined loader">sports_basketball</span>
       <section v-else class="articles">
-        <div class="featured">
+        <div class="latest">
           <h2 v-if="selectedSource">Dernières actus {{ '- ' + selectedSource }}</h2>
           <h2 v-else>Dernières actus</h2>
-          <article class="article featured" v-for="article in latestArticle" :key="article.link">
+          <article class="article latest" v-for="article in latestArticle" :key="article.link">
             <ArticleCard :article="article" />
           </article>
         </div>
@@ -64,15 +64,19 @@ onMounted(async () => {
 const sortArticles = async () => {
   loading.value = true
   const fetchedArticles = await fetchAllArticles()
+  console.log(fetchedArticles)
+
   fetchedArticles.sort((a, b) => b.pubDate.getTime() - a.pubDate.getTime())
 
-  const featured = fetchedArticles.slice(0, 1)
+  const latest = fetchedArticles.slice(0, 1)
   const regular = fetchedArticles.slice(1, 8)
 
   loading.value = false
   allArticles.value = fetchedArticles
+  console.log(allArticles.value)
+
   regularArticles.value = regular
-  latestArticle.value = featured
+  latestArticle.value = latest
   selectedSource.value = ''
 }
 
@@ -138,7 +142,7 @@ main {
   }
 }
 
-.article.featured {
+.article.latest {
   max-width: 500px;
 
   @media (max-width: 1200px) {
@@ -200,7 +204,7 @@ button {
 
 @media (max-width: 1200px) {
   .article,
-  .featured {
+  .latest {
     max-width: 100%;
 
     .img-zoom {
@@ -221,7 +225,7 @@ button {
 
 @media (max-width: 850px) {
   .article,
-  .featured,
+  .latest,
   .regular {
     width: 100%;
     max-width: none;
