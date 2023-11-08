@@ -82,7 +82,11 @@ const fetchTodayGames = async () => {
 
 const extractTime = (status: string) => {
   if (status) {
-    return status.slice(11, 16)
+    const rawTime = status.slice(11, 16)
+    const time = new Date(`2000-01-01T${rawTime}:00Z`)
+    time.setHours(time.getHours())
+
+    return time.toLocaleTimeString('fr-FR', { hour: '2-digit', minute: '2-digit' })
   }
   return ''
 }
