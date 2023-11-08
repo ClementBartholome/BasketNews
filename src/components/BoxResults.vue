@@ -93,6 +93,7 @@ const extractTime = (status: string) => {
   display: flex;
   align-items: center;
   max-width: 90vw;
+  height: 140px;
   border-radius: 10px;
   overflow-x: auto;
   padding: 10px;
