@@ -1,8 +1,11 @@
 <template>
-  <span v-if="!games">Pas de matchs joués hier</span>
-  <section v-else class="box-results">
-    <span>NBA<br />Hier</span>
-    <article v-for="game in games" :key="game.id" class="game">
+  <section class="box-results">
+    <span
+      class="yesterday"
+      v-html="isArrowRight ? 'NBA<br />Hier' : 'NBA<br />Aujourd\'hui'"
+    ></span>
+    <span v-if="!games.length" class="no-games">Pas de matchs NBA joués hier</span>
+    <article v-else v-for="game in games" :key="game.id" class="game">
       <router-link :to="`/boxscore/${game.id}`">
         <div class="column">
           <img :src="getTeamLogo(game.home_team.abbreviation)" alt="Logo" class="logo" />
@@ -14,6 +17,7 @@
         </div>
         <div class="column">
           <span
+            v-if="game.status === 'Final'"
             class="score"
             :class="{
               winner: game.home_team_score > game.visitor_team_score,
@@ -21,7 +25,9 @@
             }"
             >{{ game.home_team_score }}</span
           >
+          <span v-else class="game-time">{{ extractTime(game.status) }}</span>
           <span
+            v-if="game.status === 'Final'"
             class="score"
             :class="{
               winner: game.visitor_team_score > game.home_team_score,
@@ -32,6 +38,11 @@
         </div>
       </router-link>
     </article>
+    <button class="change-day" @click="toggleArrow">
+      <span class="material-symbols-outlined">{{
+        isArrowRight ? 'arrow_forward' : 'arrow_back'
+      }}</span>
+    </button>
   </section>
 </template>
 
@@ -42,15 +53,38 @@ import { getTeamLogo } from '@/utils/UtilsFunctions'
 import type { Game } from '@/types/types'
 
 const games = ref<Game[]>([])
+const isArrowRight = ref(true)
 
 onMounted(async () => {
-  await fetchGames()
-  console.log(games.value)
+  await fetchYesterdayGames()
 })
 
-const fetchGames = async () => {
-  const fetchedGames = await fetchNbaGames(new Date())
+const fetchYesterdayGames = async () => {
+  const date = new Date()
+  const yesterday = new Date(date.setDate(date.getDate() - 1))
+  const fetchedGames = await fetchNbaGames(yesterday)
   games.value = fetchedGames
+}
+
+const toggleArrow = () => {
+  isArrowRight.value = !isArrowRight.value
+  if (isArrowRight.value) {
+    fetchYesterdayGames()
+  } else {
+    fetchTodayGames()
+  }
+}
+
+const fetchTodayGames = async () => {
+  const todayGames = await fetchNbaGames(new Date())
+  games.value = todayGames
+}
+
+const extractTime = (status: string) => {
+  if (status) {
+    return status.slice(11, 16)
+  }
+  return ''
 }
 </script>
 
@@ -59,12 +93,27 @@ const fetchGames = async () => {
   display: flex;
   align-items: center;
   max-width: 90vw;
+  border-radius: 10px;
+  overflow-x: auto;
+  padding: 10px;
+  background: var(--background-secondary);
 
   @media (max-width: 768px) {
     max-width: 80vw;
   }
 
-  overflow-x: auto;
+  .yesterday {
+    color: var(--text-color);
+    border-right: 1px solid;
+    padding-right: 10px;
+  }
+
+  .no-games {
+    color: var(--text-color);
+    font-size: 1.2rem;
+    font-weight: bold;
+    margin: 10px;
+  }
 
   &::-webkit-scrollbar {
     height: 5px;
@@ -129,5 +178,10 @@ const fetchGames = async () => {
       margin: 5px 0;
     }
   }
+}
+
+.change-day {
+  margin-left: auto;
+  color: var(--text-color);
 }
 </style>
