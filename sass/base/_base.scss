@@ -17,19 +17,21 @@
 .light-mode {
   --text-color: #333;
   --background-color: #dee4e7;
+  --background-secondary: #f0f0f0;
 }
 
 .dark-mode {
   --text-color: #fff;
   --background-color: #333;
+  --background-secondary: rgba(110, 107, 107, 0.336);
 }
 
 #app {
   display: grid;
   grid-template: 150px 1fr / 75px 1fr;
 
-  @media (max-width: 380px) {
-    grid-template: 150px 1fr/55px 1fr;
+  @media (max-width: 425px) {
+    grid-template: 150px 1fr/ 40px 1fr;
   }
 }
 
