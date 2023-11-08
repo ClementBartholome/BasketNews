@@ -27,6 +27,7 @@ defineProps({
   flex-direction: column;
   text-align: left;
   max-width: 290px;
+  width: 100%;
 
   .img-zoom {
     height: 200px;
