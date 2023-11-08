@@ -85,15 +85,12 @@ const maxPageDisplay = 6
 
 const pageNumbers = computed(() => {
   const totalArticles = allArticles.value.length
-  console.log(totalArticles)
+
   const totalPages = Math.ceil(totalArticles / articlesPerPage)
-  console.log(totalPages)
 
   const startPage = Math.max(1, currentPage.value - Math.floor(maxPageDisplay / 2))
-  console.log(startPage)
 
   const endPage = Math.min(totalPages, startPage + maxPageDisplay - 1)
-  console.log(endPage)
 
   return Array.from({ length: endPage - startPage + 1 }, (_, i) => startPage + i)
 })
