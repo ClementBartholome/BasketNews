@@ -26,11 +26,11 @@ defineProps({
   display: flex;
   flex-direction: column;
   text-align: left;
-  max-width: 290px;
+  max-width: 400px;
   width: 100%;
 
   .img-zoom {
-    height: 200px;
+    height: 250px;
     display: flex;
     align-items: center;
     overflow: hidden;
