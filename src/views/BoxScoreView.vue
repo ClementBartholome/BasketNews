@@ -2,7 +2,10 @@
   <HeaderItem />
   <main>
     <BoxResults />
-    <section class="box-score">
+    <h2 v-if="!boxScore.length" style="display: flex; justify-content: center">
+      Le match n'a pas commencé
+    </h2>
+    <section v-else class="box-score">
       <div class="box-score-header" v-if="homeTeamPlayers[0]">
         <img :src="getTeamLogo(homeTeamPlayers[0].team.abbreviation)" alt="Logo" class="logo" />
         <h3>
