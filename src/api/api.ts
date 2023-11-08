@@ -68,9 +68,10 @@ export const fetchNbaGames = async (currentDate: Date) => {
 
   const year = currentDate.getFullYear()
   const month = currentDate.getMonth() + 1
-  const day = currentDate.getDate() - 1
+  const day = currentDate.getDate()
 
   const startDate = `${year}-${month}-${day}`
+
   const endDate = `${year}-${month}-${day}`
 
   const params = new URLSearchParams({
