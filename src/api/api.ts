@@ -59,7 +59,7 @@ export const fetchAllArticles = async () => {
       console.error(`Erreur lors de la récupération des articles de ${source.name}:`, error)
     }
   }
-
+  console.log(fetchedArticles)
   return fetchedArticles
 }
 
