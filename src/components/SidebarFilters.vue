@@ -64,6 +64,11 @@ const ToggleMenu = () => {
 .logo {
   height: 32px;
   width: 32px;
+
+  @media (max-width: 425px) {
+    height: 26px;
+    width: 26px;
+  }
 }
 
 aside {
@@ -72,14 +77,11 @@ aside {
   grid-column: 1;
   background-color: var(--dark);
   color: var(--light);
-
   width: calc(2rem + 32px);
   overflow: hidden;
   min-height: 100vh;
   padding: 1rem;
-
   position: fixed;
-
   transition: 0.2s ease-in-out;
 
   .flex {
@@ -107,6 +109,10 @@ aside {
         font-size: 2rem;
         color: var(--light);
         transition: 0.2s ease-out;
+
+        @media (max-width: 425px) {
+          font-size: 1.5rem;
+        }
       }
 
       &:hover {
@@ -134,6 +140,12 @@ aside {
   .menu {
     margin: 0 -1rem;
 
+    @media (max-width: 425px) {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
     .button {
       width: 100%;
       display: flex;
@@ -146,6 +158,10 @@ aside {
         font-size: 2rem;
         color: var(--light);
         transition: 0.2s ease-in-out;
+
+        @media (max-width: 425px) {
+          font-size: 1.6rem;
+        }
       }
       .text {
         color: var(--light);
@@ -215,8 +231,8 @@ aside {
     z-index: 99;
   }
 
-  @media (max-width: 375px) {
-    width: calc(2rem + 16px);
+  @media (max-width: 425px) {
+    width: calc(2rem + 8px);
 
     .menu .button {
       padding: 0.5rem;
