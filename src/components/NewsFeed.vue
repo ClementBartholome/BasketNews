@@ -69,6 +69,10 @@ const toggleShowLess = () => {
     overflow: hidden;
     text-overflow: ellipsis;
 
+    &:hover a {
+      color: #007bff;
+    }
+
     @media (max-width: 375px) {
       max-width: 210px;
     }
@@ -80,6 +84,7 @@ const toggleShowLess = () => {
     display: flex;
     align-items: center;
     overflow: hidden;
+    margin-left: auto;
 
     @media (max-width: 375px) {
       display: none;
