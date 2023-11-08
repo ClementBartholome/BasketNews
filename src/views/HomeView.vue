@@ -12,7 +12,8 @@
       <span v-if="loading" class="material-symbols-outlined loader">sports_basketball</span>
       <section v-else class="articles">
         <div class="featured">
-          <h2>Dernières actus</h2>
+          <h2 v-if="selectedSource">Dernières actus {{ '- ' + selectedSource }}</h2>
+          <h2 v-else>Dernières actus</h2>
           <article class="article featured" v-for="article in latestArticle" :key="article.link">
             <ArticleCard :article="article" />
           </article>
@@ -93,10 +94,6 @@ const filterArticles = (sourceName: string) => {
 
 <style lang="scss">
 .dark-mode {
-  .continu {
-    background-color: rgba(110, 107, 107, 0.336);
-  }
-
   a {
     color: var(--text-color);
   }
@@ -119,6 +116,14 @@ main {
   display: flex;
   flex-wrap: wrap;
   margin-right: 20px;
+
+  @media (max-width: 425px) {
+    margin-right: 0;
+  }
+
+  a:hover h2 {
+    color: #007bff;
+  }
 
   .regular {
     margin-top: 52px;
@@ -166,30 +171,14 @@ a {
   color: var(--text-color-light);
 }
 
-main a:hover {
-  color: #007bff;
-}
-
 button {
   background: none;
   border: none;
   cursor: pointer;
-
-  .light_mode::before {
-    content: '🌞';
-  }
-
-  .dark_mode::before {
-    content: '🌙';
-  }
-
-  .dark-mode &.dark_mode::before {
-    color: white;
-  }
 }
 
 .continu {
-  background-color: #f0f0f0;
+  background-color: var(--background-secondary);
   padding: 15px;
   border-radius: 10px;
   margin-top: 10px;
@@ -242,9 +231,12 @@ button {
   }
 }
 
-@media (max-width: 500px) {
+@media (max-width: 425px) {
+  main {
+    padding: 10px;
+  }
   .home-layout {
-    margin: 10px;
+    margin: 0;
   }
 }
 
