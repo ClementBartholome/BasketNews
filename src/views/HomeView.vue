@@ -18,7 +18,6 @@
             <ArticleCard :article="article" />
           </article>
         </div>
-
         <article class="article regular" v-for="article in regularArticles" :key="article.link">
           <ArticleCard :article="article" />
         </article>
@@ -138,7 +137,6 @@ button {
   gap: 1.5rem;
   display: flex;
   flex-wrap: wrap;
-  margin-right: 20px;
 
   @media (max-width: 425px) {
     margin-right: 0;
@@ -196,6 +194,7 @@ button {
   padding: 15px;
   border-radius: 10px;
   margin-top: 10px;
+  margin-left: 20px;
   height: fit-content;
   grid-row: 1;
   grid-column: 2;
@@ -223,7 +222,7 @@ button {
   }
 }
 
-@media (max-width: 980px) {
+@media (max-width: 900px) {
   .home-layout {
     grid-template-columns: 1fr;
     margin: 20px;
