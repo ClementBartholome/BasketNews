@@ -63,7 +63,6 @@ onMounted(async () => {
 const sortArticles = async () => {
   loading.value = true
   const fetchedArticles = await fetchAllArticles()
-  console.log(fetchedArticles)
 
   fetchedArticles.sort((a, b) => b.pubDate.getTime() - a.pubDate.getTime())
 
@@ -72,7 +71,6 @@ const sortArticles = async () => {
 
   loading.value = false
   allArticles.value = fetchedArticles
-  console.log(allArticles.value)
 
   regularArticles.value = regular
   latestArticle.value = latest

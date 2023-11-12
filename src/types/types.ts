@@ -17,6 +17,7 @@ export interface Game {
   id: number
   home_team_score: number
   status: string
+  time: string
   visitor_team_score: number
   home_team: {
     abbreviation: string

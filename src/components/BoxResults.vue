@@ -25,7 +25,27 @@
             }"
             >{{ game.home_team_score }}</span
           >
-          <span v-else class="game-time">{{ extractTime(game.status) }}</span>
+          <span v-else-if="game.time === null" class="game-time">{{
+            extractTime(game.status)
+          }}</span>
+          <div v-else class="column">
+            <span
+              class="score"
+              :class="{
+                winner: game.home_team_score > game.visitor_team_score,
+                loser: game.home_team_score < game.visitor_team_score
+              }"
+              >{{ game.home_team_score }}</span
+            >
+            <span
+              class="score"
+              :class="{
+                winner: game.visitor_team_score > game.home_team_score,
+                loser: game.visitor_team_score < game.home_team_score
+              }"
+              >{{ game.visitor_team_score }}</span
+            >
+          </div>
           <span
             v-if="game.status === 'Final'"
             class="score"
@@ -78,6 +98,7 @@ const toggleArrow = () => {
 const fetchTodayGames = async () => {
   const todayGames = await fetchNbaGames(new Date())
   games.value = todayGames
+  console.log(games.value)
 }
 
 const extractTime = (status: string) => {
