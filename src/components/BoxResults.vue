@@ -111,6 +111,7 @@ const extractTime = (status: string) => {
     color: var(--text-color);
     border-right: 1px solid;
     padding-right: 10px;
+    font-size: 1.5rem;
   }
 
   .no-games {
