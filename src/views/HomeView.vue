@@ -55,12 +55,12 @@ const loading = ref(true)
 const selectedSource = ref<string>('')
 
 onMounted(async () => {
-  sortArticles()
+  fetchAndSortArticles()
   const intervalDuration = 60 * 1000 // 1 minute
-  setInterval(sortArticles, intervalDuration)
+  setInterval(fetchAndSortArticles, intervalDuration)
 })
 
-const sortArticles = async () => {
+const fetchAndSortArticles = async () => {
   loading.value = true
   const fetchedArticles = await fetchAllArticles()
 
@@ -88,7 +88,7 @@ const filterArticles = (sourceName: string) => {
     .slice(1, 8)
 
   if (selectedSource.value === '') {
-    sortArticles()
+    fetchAndSortArticles()
   }
 }
 </script>
