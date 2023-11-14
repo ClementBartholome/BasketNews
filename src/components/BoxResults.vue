@@ -84,6 +84,7 @@ const fetchYesterdayGames = async () => {
   const yesterday = new Date(date.setDate(date.getDate() - 1))
   const fetchedGames = await fetchNbaGames(yesterday)
   games.value = fetchedGames
+  sortGamesByStartTime()
 }
 
 const toggleArrow = () => {
@@ -99,6 +100,15 @@ const fetchTodayGames = async () => {
   const todayGames = await fetchNbaGames(new Date())
   games.value = todayGames
   console.log(games.value)
+  sortGamesByStartTime()
+}
+
+const sortGamesByStartTime = () => {
+  games.value.sort((a, b) => {
+    const timeA = extractTime(a.status)
+    const timeB = extractTime(b.status)
+    return timeA.localeCompare(timeB)
+  })
 }
 
 const extractTime = (status: string) => {
