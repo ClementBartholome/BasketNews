@@ -56,8 +56,6 @@ const selectedSource = ref<string>('')
 
 onMounted(async () => {
   fetchAndSortArticles()
-  const intervalDuration = 60 * 1000 // 1 minute
-  setInterval(fetchAndSortArticles, intervalDuration)
 })
 
 const fetchAndSortArticles = async () => {
