@@ -23,6 +23,16 @@ const router = createRouter({
       path: '/boxscore/:id',
       name: 'boxscore',
       component: () => import('../views/BoxScoreView.vue')
+    },
+    {
+      path: '/login',
+      name: 'login',
+      component: () => import('../components/LoginForm.vue')
+    },
+    {
+      path: '/register',
+      name: 'register',
+      component: () => import('../components/RegisterForm.vue')
     }
   ]
 })
