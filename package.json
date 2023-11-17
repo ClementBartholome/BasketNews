@@ -22,6 +22,7 @@
     "cheerio": "^1.0.0-rc.12",
     "pinia": "^2.1.7",
     "vue": "^3.3.4",
+    "vue-final-modal": "^3.4.11",
     "vue-router": "^4.2.5"
   },
   "devDependencies": {

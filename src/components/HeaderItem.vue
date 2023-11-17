@@ -7,20 +7,75 @@
       </div>
     </router-link>
     <DarkModeBtn />
+    <button @click="showModal = true">
+      <span class="material-symbols-outlined" style="color: white"> person </span>
+    </button>
+    <vue-final-modal
+      v-model="showModal"
+      classes="modal-container"
+      content-class="modal-content"
+      v-if="user"
+    >
+      <div class="user">
+        <p>Bienvenue, {{ user.userName }} !</p>
+        <button @click="userStore.logout">Se déconnecter</button>
+      </div>
+    </vue-final-modal>
+    <vue-final-modal
+      v-model="showModal"
+      classes="modal-container"
+      content-class="modal-content"
+      v-else
+    >
+      <div class="user">
+        <router-link to="/login">
+          <button>Se connecter</button>
+        </router-link>
+        <router-link to="/register">
+          <button>S'inscrire</button>
+        </router-link>
+      </div>
+    </vue-final-modal>
   </header>
 </template>
 
 <script setup lang="ts">
+import { $vfm, VueFinalModal, ModalsContainer } from 'vue-final-modal'
+import { ref, watch } from 'vue'
 import DarkModeBtn from '@/components/DarkModeBtn.vue'
+import { useUserStore } from '@/stores/user'
+
+const userStore = useUserStore()
+const user = ref(userStore.getUser)
+const showModal = ref(false)
+
+watch(
+  () => userStore.getUser,
+  () => {
+    user.value = userStore.getUser
+  }
+)
 </script>
 
 <style lang="scss" scoped>
+::v-deep .modal-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+::v-deep .modal-content {
+  display: flex;
+  flex-direction: column;
+  margin: 0 1rem;
+  padding: 1rem;
+  border: 1px solid #e2e8f0;
+  border-radius: 0.25rem;
+}
+
 .header {
   display: flex;
   justify-content: center;
   align-items: center;
-  border-bottom: 2px solid rgba(235, 235, 235, 0.8352941176);
-  padding-bottom: 40px;
   padding-right: 10px;
   text-transform: uppercase;
   margin-top: 40px;
@@ -28,6 +83,12 @@ import DarkModeBtn from '@/components/DarkModeBtn.vue'
   max-width: 1280px;
   margin: 40px auto;
   grid-column: 2;
+  gap: 40px;
+
+  @media (max-width: 590px) {
+    flex-direction: column;
+    gap: 10px;
+  }
 
   .header-content {
     display: flex;
@@ -36,6 +97,7 @@ import DarkModeBtn from '@/components/DarkModeBtn.vue'
     transition:
       transform 0.2s,
       color 0.2s;
+    border-bottom: 2px solid rgba(235, 235, 235, 0.8352941176);
 
     &:hover {
       transform: scale(1.1);
@@ -61,6 +123,31 @@ import DarkModeBtn from '@/components/DarkModeBtn.vue'
     transition:
       transform 0.2s,
       color 0.2s;
+  }
+
+  button .material-symbols-outlined {
+    &:hover {
+      opacity: 0.7;
+      transition: opacity 0.2s ease-in-out;
+    }
+  }
+
+  .user {
+    display: flex;
+    flex-direction: column;
+
+    @media (max-width: 590px) {
+      flex-direction: row;
+      gap: 10px;
+    }
+    button {
+      color: white;
+      font-size: 2rem;
+
+      &:hover {
+        opacity: 0.7;
+      }
+    }
   }
 }
 </style>
