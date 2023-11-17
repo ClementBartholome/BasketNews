@@ -3,7 +3,7 @@ import { expect, describe, it } from 'vitest'
 import HomeView from '../src/views/HomeView.vue'
 
 describe('HomeView', () => {
-  it('sorts articles correctly and updates values', async () => {
+  it('fetch and sort articles correctly', async () => {
     const wrapper = mount(HomeView)
 
     // Call the function to fetch and sort articles
