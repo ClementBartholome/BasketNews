@@ -7,8 +7,11 @@
       {{ article.title }}
     </h2>
     <p v-html="article.description" v-if="article"></p>
-    <small v-if="article">{{ formatDate(article.pubDate) }} - {{ article.source }}</small>
   </a>
+  <div class="flex-container">
+    <small v-if="article">{{ formatDate(article.pubDate) }} - {{ article.source }}</small>
+    <span class="material-symbols-outlined"> bookmark </span>
+  </div>
 </template>
 
 <script setup lang="ts">
@@ -50,6 +53,11 @@ defineProps({
   h1 {
     text-align: center;
     margin: 20px 0;
+  }
+  .flex-container {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
   }
 }
 
