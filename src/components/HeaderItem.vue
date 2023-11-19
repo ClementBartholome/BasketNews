@@ -62,12 +62,12 @@ onMounted(() => {
 </script>
 
 <style lang="scss" scoped>
-::v-deep .modal-container {
+:deep(.modal-container) {
   display: flex;
   justify-content: center;
   align-items: center;
 }
-::v-deep .modal-content {
+:deep(.modal-content) {
   display: flex;
   flex-direction: column;
   margin: 0 1rem;
