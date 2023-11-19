@@ -8,7 +8,7 @@
     </router-link>
     <DarkModeBtn />
     <button @click="showModal = true">
-      <span class="material-symbols-outlined" style="color: white"> person </span>
+      <span class="material-symbols-outlined" style="color: var(--text-color)"> person </span>
     </button>
     <vue-final-modal
       v-model="showModal"
@@ -40,8 +40,8 @@
 </template>
 
 <script setup lang="ts">
-import { $vfm, VueFinalModal, ModalsContainer } from 'vue-final-modal'
-import { ref, watch } from 'vue'
+import { $vfm, VueFinalModal } from 'vue-final-modal'
+import { ref, watch, onMounted } from 'vue'
 import DarkModeBtn from '@/components/DarkModeBtn.vue'
 import { useUserStore } from '@/stores/user'
 
@@ -49,12 +49,15 @@ const userStore = useUserStore()
 const user = ref(userStore.getUser)
 const showModal = ref(false)
 
-watch(
-  () => userStore.getUser,
-  () => {
-    user.value = userStore.getUser
-  }
-)
+onMounted(() => {
+  console.log(user.value)
+}),
+  watch(
+    () => userStore.getUser,
+    () => {
+      user.value = userStore.getUser
+    }
+  )
 </script>
 
 <style lang="scss" scoped>
@@ -136,10 +139,6 @@ watch(
     display: flex;
     flex-direction: column;
 
-    @media (max-width: 590px) {
-      flex-direction: row;
-      gap: 10px;
-    }
     button {
       color: white;
       font-size: 2rem;
