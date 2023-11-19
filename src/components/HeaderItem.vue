@@ -40,6 +40,7 @@
 </template>
 
 <script setup lang="ts">
+// @ts-expect-error
 import { $vfm, VueFinalModal } from 'vue-final-modal'
 import { ref, watch, onMounted } from 'vue'
 import DarkModeBtn from '@/components/DarkModeBtn.vue'
