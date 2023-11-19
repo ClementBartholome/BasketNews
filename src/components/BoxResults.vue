@@ -105,8 +105,19 @@ const fetchTodayGames = async () => {
 
 const sortGamesByStartTime = () => {
   games.value.sort((a, b) => {
+    // Convert the status string to Date objects for comparison
+    const dateA = new Date(a.status)
+    const dateB = new Date(b.status)
+
+    if (dateA.getTime() !== dateB.getTime()) {
+      return dateA.getTime() - dateB.getTime()
+    }
+
+    // If the dates are the same, compare the times using the extractTime function
     const timeA = extractTime(a.status)
     const timeB = extractTime(b.status)
+
+    // Use localeCompare to compare the times and return the result
     return timeA.localeCompare(timeB)
   })
 }
