@@ -3,7 +3,7 @@ import { defineStore } from 'pinia'
 
 export const useUserStore = defineStore('user', {
   state: () => ({
-    user: JSON.parse(localStorage.getItem('user')) || null
+    user: JSON.parse(localStorage.getItem('user')!) || null
   }),
 
   getters: {
@@ -20,6 +20,8 @@ export const useUserStore = defineStore('user', {
       })
 
       const user = response.data
+      console.log(response.data)
+
       this.user = user
       localStorage.setItem('user', JSON.stringify(user))
       return user
