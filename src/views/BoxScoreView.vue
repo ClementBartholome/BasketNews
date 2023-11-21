@@ -15,7 +15,7 @@
       <table class="home-team">
         <thead>
           <tr>
-            <th>Player</th>
+            <th>Joueur</th>
             <th>PTS</th>
             <th>REB</th>
             <th>AST</th>
@@ -70,7 +70,7 @@
       <table class="away-team">
         <thead>
           <tr>
-            <th>Player</th>
+            <th>Joueur</th>
             <th>PTS</th>
             <th>REB</th>
             <th>AST</th>
