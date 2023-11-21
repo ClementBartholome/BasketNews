@@ -85,7 +85,33 @@ export const fetchNbaGames = async (currentDate: Date) => {
 
 export const fetchBoxScore = async (gameId: number) => {
   const apiUrl = `https://www.balldontlie.io/api/v1/stats?game_ids[]=${gameId}&per_page=100`
-
   const response = await axios.get(apiUrl)
   return response.data.data
+}
+
+export const addBookmarkArticle = async (article: any) => {
+  try {
+    const response = await axios.post('https://localhost:7172/api/Bookmarks', article)
+    return response.data
+  } catch (error) {
+    console.error(error)
+  }
+}
+
+export const fetchUserBookmarks = async (userId: string) => {
+  try {
+    const response = await axios.get(`https://localhost:7172/api/Bookmarks/user/${userId}`)
+    return response.data
+  } catch (error) {
+    console.error(error)
+  }
+}
+
+export const removeBookmarkArticle = async (bookmarkId: number) => {
+  try {
+    const response = await axios.delete(`https://localhost:7172/api/Bookmarks/${bookmarkId}`)
+    return response.data
+  } catch (error) {
+    console.error(error)
+  }
 }

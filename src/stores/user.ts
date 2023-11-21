@@ -1,5 +1,6 @@
 import axios from 'axios'
 import { defineStore } from 'pinia'
+import { fetchUserBookmarks } from '@/api/api'
 
 export const useUserStore = defineStore('user', {
   state: () => ({
@@ -29,6 +30,18 @@ export const useUserStore = defineStore('user', {
     async logout() {
       this.user = null
       localStorage.removeItem('user')
+    },
+    async getUserBookmarks(userId: string) {
+      try {
+        const bookmarks = await fetchUserBookmarks(userId)
+        this.user = {
+          ...this.user,
+          bookmarks
+        }
+        localStorage.setItem('user', JSON.stringify(this.user))
+      } catch (error) {
+        console.error('Error fetching bookmarks:', error)
+      }
     }
   }
 })
