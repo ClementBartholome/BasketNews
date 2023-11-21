@@ -4,6 +4,7 @@ export interface Article {
   link: string
   author: string
   image: string
+  imageLink?: string
   description: string
   source: string
 }
