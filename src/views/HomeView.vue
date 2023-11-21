@@ -37,7 +37,7 @@
 </template>
 
 <script setup lang="ts">
-import { ref, onMounted } from 'vue'
+import { ref, onMounted, watch } from 'vue'
 import ArticleCard from '@/components/ArticleCard.vue'
 import HeaderItem from '@/components/HeaderItem.vue'
 import NewsFeed from '@/components/NewsFeed.vue'
@@ -47,28 +47,43 @@ import LoadMoreBtn from '@/components/LoadMoreBtn.vue'
 import { sources } from '@/assets/sources'
 import type { Article } from '@/types/types'
 import { fetchAllArticles } from '@/api/api'
+import { useUserStore } from '@/stores/user'
 
 const latestArticle = ref<Article[]>([])
 const regularArticles = ref<Article[]>([])
 const allArticles = ref<Article[]>([])
-const loading = ref(true)
+const loading = ref<boolean>(true)
 const selectedSource = ref<string>('')
 
+const userStore = useUserStore()
+const user = ref(userStore.getUser)
+
 onMounted(async () => {
-  fetchAndSortArticles()
+  loadAndDisplayArticles()
 })
 
-const fetchAndSortArticles = async () => {
+watch(
+  () => userStore.getUser,
+  () => {
+    user.value = userStore.getUser
+  }
+)
+
+const sortArticles = (articles: Article[]) => {
+  return articles.slice().sort((a, b) => b.pubDate.getTime() - a.pubDate.getTime())
+}
+
+const loadAndDisplayArticles = async () => {
   loading.value = true
   const fetchedArticles = await fetchAllArticles()
 
-  fetchedArticles.sort((a, b) => b.pubDate.getTime() - a.pubDate.getTime())
+  const sortedArticles = sortArticles(fetchedArticles)
 
-  const latest = fetchedArticles.slice(0, 1)
-  const regular = fetchedArticles.slice(1, 8)
+  const latest = sortedArticles.slice(0, 1)
+  const regular = sortedArticles.slice(1, 8)
 
   loading.value = false
-  allArticles.value = fetchedArticles
+  allArticles.value = sortedArticles
 
   regularArticles.value = regular
   latestArticle.value = latest
@@ -78,15 +93,23 @@ const fetchAndSortArticles = async () => {
 const filterArticles = (sourceName: string) => {
   selectedSource.value = sourceName
 
+  // REMOVE SOURCENAME === '' ?
   latestArticle.value = allArticles.value
-    .filter((article) => (sourceName === '' ? true : article.source === sourceName))
+    .filter((article) => article.source === sourceName)
     .slice(0, 1)
   regularArticles.value = allArticles.value
-    .filter((article) => (sourceName === '' ? true : article.source === sourceName))
+    .filter((article) => article.source === sourceName)
     .slice(1, 8)
 
   if (selectedSource.value === '') {
-    fetchAndSortArticles()
+    loadAndDisplayArticles()
+  }
+
+  if (selectedSource.value === 'Signets') {
+    if (user.value) {
+      latestArticle.value = user.value.bookmarks.slice(0, 1)
+      regularArticles.value = user.value.bookmarks.slice(1, 8)
+    }
   }
 }
 </script>
