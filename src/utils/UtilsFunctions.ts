@@ -1,10 +1,19 @@
-export function formatDate(date: Date): string {
-  const day = String(date.getDate()).padStart(2, '0')
-  const month = String(date.getMonth() + 1).padStart(2, '0')
-  const year = date.getFullYear()
-  const hours = date.getHours()
-  const minutes = (date.getMinutes() < 10 ? '0' : '') + date.getMinutes()
-  return `${day}/${month}/${year} à ${hours}:${minutes}`
+export function formatDate(date: any): string {
+  if (date instanceof Date) {
+    const day = String(date.getDate()).padStart(2, '0')
+    const month = String(date.getMonth() + 1).padStart(2, '0')
+    const year = date.getFullYear()
+    const hours = date.getHours()
+    const minutes = (date.getMinutes() < 10 ? '0' : '') + date.getMinutes()
+    return `${day}/${month}/${year} à ${hours}:${minutes}`
+  } else {
+    const dateObj = new Date(date)
+    return `${dateObj.getDate()}/${
+      dateObj.getMonth() + 1
+    }/${dateObj.getFullYear()} à ${dateObj.getHours()}:${
+      dateObj.getMinutes() < 10 ? '0' + dateObj.getMinutes() : dateObj.getMinutes()
+    }`
+  }
 }
 
 export function formatTime(date: Date): string {
