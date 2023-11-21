@@ -9,11 +9,7 @@ export const fetchAllArticles = async () => {
   for (const source of sources) {
     try {
       const response = await axios.get(
-        `https://api.rss2json.com/v1/api.json?rss_url=${
-          source.name === 'New York Times'
-            ? source.url
-            : `${source.url}${Math.random() > 0.5 ? '/' : ''}`
-        }`,
+        `https://api.rss2json.com/v1/api.json?rss_url=${source.url}`,
         {
           params: {
             api_key: 'r2a7tree6j7ddkzq3ofmrefdqnkbvogtqfmd1xtp'
