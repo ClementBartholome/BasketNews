@@ -6,10 +6,12 @@
         <h1>Daily Basket</h1>
       </div>
     </router-link>
-    <DarkModeBtn />
-    <button @click="showModal = true">
-      <span class="material-symbols-outlined" style="color: var(--text-color)"> person </span>
-    </button>
+    <div class="buttons">
+      <button class="user-button" @click="showModal = true">
+        <span class="material-symbols-outlined" style="color: var(--text-color)"> person </span>
+      </button>
+      <DarkModeBtn />
+    </div>
     <vue-final-modal
       v-model="showModal"
       classes="modal-container"
@@ -80,7 +82,6 @@ onMounted(() => {
   display: flex;
   justify-content: center;
   align-items: center;
-  padding-right: 10px;
   text-transform: uppercase;
   margin-top: 40px;
   margin-right: 10px;
@@ -122,8 +123,17 @@ onMounted(() => {
       }
     }
   }
+
+  .user-button {
+    position: absolute;
+    right: 80px;
+    top: 20px;
+    @media (max-width: 700px) {
+      right: 50px;
+      top: 10px;
+    }
+  }
   .material-symbols-outlined {
-    font-size: 2rem;
     transition:
       transform 0.2s,
       color 0.2s;

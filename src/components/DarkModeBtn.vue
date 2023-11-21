@@ -24,7 +24,7 @@ const toggleDarkMode = () => {
   display: flex;
   color: var(--text-color);
 
-  @media (max-width: 450px) {
+  @media (max-width: 700px) {
     right: 5px;
     top: 10px;
   }
