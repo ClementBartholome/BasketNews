@@ -2,7 +2,7 @@
   <aside :class="`${is_expanded ? 'is-expanded' : ''}`">
     <div class="logo"></div>
     <div class="menu-toggle-wrap">
-      <button class="menu-toggle" @click="ToggleMenu">
+      <button class="menu-toggle" @click="toggleMenu">
         <span class="material-symbols-outlined">keyboard_double_arrow_right</span>
       </button>
     </div>
@@ -31,6 +31,11 @@
           {{ source.name }}
         </span>
       </button>
+
+      <button class="filter-button button" @click="filterArticles('Signets')">
+        <span class="material-symbols-outlined bookmarks"> bookmarks </span>
+        <span class="text"> Signets</span>
+      </button>
     </div>
   </aside>
 </template>
@@ -50,7 +55,7 @@ defineProps({
 const savedIsExpanded = localStorage.getItem('is_expanded')
 const is_expanded = ref(savedIsExpanded === 'true')
 
-const ToggleMenu = () => {
+const toggleMenu = () => {
   is_expanded.value = !is_expanded.value
   localStorage.setItem('is_expanded', is_expanded.value.toString())
 }
@@ -69,6 +74,11 @@ const ToggleMenu = () => {
     height: 26px;
     width: 26px;
   }
+}
+
+.bookmarks {
+  font-size: 32px;
+  cursor: pointer;
 }
 
 aside {
