@@ -18,11 +18,15 @@
             <ArticleCard :article="article" />
           </article>
         </div>
-        <article class="article regular" v-for="article in regularArticles" :key="article.link">
+        <article
+          class="article regular card"
+          v-for="article in regularArticles"
+          :key="article.link"
+        >
           <ArticleCard :article="article" />
         </article>
       </section>
-      <router-link to="/news/page/2">
+      <router-link to="/news/page/2" class="next-page">
         <LoadMoreBtn>
           Afficher la suite des actus
           <span class="material-symbols-outlined"> arrow_right_alt </span></LoadMoreBtn
@@ -228,6 +232,10 @@ button {
   display: grid;
   grid-template-columns: 1fr 320px;
   margin: 10px;
+
+  .next-page {
+    margin: 8rem 0;
+  }
 }
 
 @media (max-width: 1200px) {
@@ -296,6 +304,36 @@ button {
   }
   100% {
     top: 20px;
+  }
+}
+
+@supports (animation-timeline: view(block)) {
+  @keyframes reveal {
+    from {
+      scale: 0.5;
+      opacity: 0;
+    }
+    to {
+      scale: 1;
+      opacity: 1;
+    }
+  }
+
+  @keyframes progress {
+    from {
+      scale: 0 1;
+    }
+    to {
+      scale: 1 1;
+    }
+  }
+
+  .card:not(:first-of-type) {
+    animation: reveal linear;
+    animation-timeline: view(block);
+    animation-range: cover 0% contain 50%;
+    border-radius: 12px;
+    overflow: hidden;
   }
 }
 </style>
