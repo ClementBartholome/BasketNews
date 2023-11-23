@@ -66,6 +66,9 @@ a {
 body {
   color: var(--text-color-light);
   background-color: var(--background-color-light);
+  transition:
+    color 0.3s ease,
+    background-color 0.3s ease;
 }
 
 .dark-mode {
