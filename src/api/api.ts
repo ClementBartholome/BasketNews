@@ -8,14 +8,13 @@ export const fetchAllArticles = async () => {
 
   for (const source of sources) {
     try {
-      const response = await axios.get(
-        `https://api.rss2json.com/v1/api.json?rss_url=${source.url}`,
-        {
-          params: {
-            api_key: 'r2a7tree6j7ddkzq3ofmrefdqnkbvogtqfmd1xtp'
-          }
+      const response = await axios.get(`https://api.rss2json.com/v1/api.json`, {
+        params: {
+          rss_url: source.url,
+          t: Math.floor(Date.now() / 1000),
+          api_key: 'r2a7tree6j7ddkzq3ofmrefdqnkbvogtqfmd1xtp'
         }
-      )
+      })
 
       const items = response.data.items.map((item: any) => {
         const description = item.description
