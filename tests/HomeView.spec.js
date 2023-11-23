@@ -7,7 +7,7 @@ describe('HomeView', () => {
     const wrapper = mount(HomeView)
 
     // Call the function to fetch and sort articles
-    await wrapper.vm.fetchAndSortArticles()
+    await wrapper.vm.loadAndDisplayArticles()
 
     // Verify that loading is false after sorting
     expect(wrapper.vm.loading).toBe(false)
@@ -25,9 +25,8 @@ describe('HomeView', () => {
     wrapper.vm.regularArticles = []
 
     // Call the function to fetch and sort articles
-    await wrapper.vm.fetchAndSortArticles()
+    await wrapper.vm.loadAndDisplayArticles()
 
-    // Call the function you want to test
     wrapper.vm.filterArticles('BasketUSA')
 
     // Verify that selectedSource has been updated
@@ -37,7 +36,7 @@ describe('HomeView', () => {
     expect(wrapper.vm.latestArticle).toHaveLength(1)
     expect(wrapper.vm.regularArticles).toHaveLength(7)
 
-    // Verify that fetchAndSortArticles is called when selectedSource is empty
+    // Verify that loadAndDisplayArticles is called when selectedSource is empty
     wrapper.vm.filterArticles('')
   })
 })
